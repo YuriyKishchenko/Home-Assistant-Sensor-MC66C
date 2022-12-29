@@ -1,3 +1,12 @@
+[![GitHub Release][releases-shield]][releases]
+[![GitHub Repo stars][stars-shield]][stars]
+[![License][license-shield]](LICENSE)
+[![GitHub Activity][commits-shield]][commits]
+[![Project Maintenance][maintenance-shield]][maintainer]
+[![hacs][hacs-shield]][hacs]
+[![hacs][hacs-installs-shield]][hacs]
+[![BuyMeCoffee][buymecoffeebadge]][buymecoffee]
+
 # I no longer own this device.
 **I'm happy to accepts PR's, but I won't be able to develop and test changes myself. If you want to take over the development, let me know.**
 
@@ -12,8 +21,10 @@ According to the docs ([attached](5511-%20634%20GB%20Rev%20C1.qxd.pdf)) this mig
 For more technical details about the communication with the meter, you might want to check out pages 33-36. I also found page 9 with the units interesting.
 
 # Requirements
-To use this component, you'll need a cable with an IR read/write head and connect your machine running Home Assistant directly to the IR sensor of the Kamstrup Multical 66C meter.
-For me, this USB-cable from [Ebay](https://www.ebay.nl/itm/USB-IR-Infrarot-Lese-Schreibkopf-f%C3%BCr-Stromz%C3%A4hler-Smart-Meter/274095213723) worked perfectly. The one from [Volkszaehler.org](https://wiki.volkszaehler.org/hardware/controllers/ir-schreib-lesekopf) seems also to work fine, but might be harder to get, though the PCB schematics looks to be available under an open source hardware license from https://github.com/Hal9k-dk/kamstrup (plus BOM and more info on http://wiki.hal9k.dk/projects/kamstrup).
+To use this component, you'll need a cable with an IR read/write head and connect your machine running Home Assistant directly to the IR sensor of the Kamstrup meter.
+The one from [Volkszaehler.org](https://wiki.volkszaehler.org/hardware/controllers/ir-schreib-lesekopf) seems to work fine, but might be hard to get.
+The read/write head looks like this:
+![cable](https://user-images.githubusercontent.com/2211503/136630069-9da49f09-6f9c-4618-8255-40195405f21a.jpg)
 
 # Installation
 There are a few ways you can install this custom component into your Home Assistant.
@@ -33,7 +44,7 @@ git pull
 
 # Configuration
 Before you add the configuration, make sure you have added all the files and have restarted your Home Assistant.
- 
+
 Also, there are many ways to add this sensor to your configuration. You can add the bellow `sensor` and (optional) `group` from the example below directly to your `configuration.yaml` file.
 The way I prefer doing this is making use of the [packages](https://www.home-assistant.io/docs/configuration/packages/) approach.
 In that case you could use the following configuration in `<home_assistant_path>/packages/stadsverwarming.yaml`
@@ -53,6 +64,7 @@ sensor:
       - power
       - flow
       - peak_power
+      - info_code
 
 group:
   mc66c:
@@ -94,12 +106,12 @@ This is optional, the seconds that the sensor will check for updates, 30 is the 
 resources: list
 ```
 This is optional, however an empty list (the default) will result in no sensors being created. Only the sensors that are being listed will be created. Possible values are:
-- `energy` - Energy usage in `GJ`  
-- `volume` - Volume in `M3`  
-- `op_hrs` - Operating hours, using unit `hrs`  
-- `temperature_in` - Temperature in, in `°C`  
+- `energy` - Energy usage in `GJ`
+- `volume` - Volume in `M3`
+- `op_hrs` - Operating hours, using unit `hrs`
+- `temperature_in` - Temperature in, in `°C`
 - `temperature_out` - Temperature out in `°C`
-- `temperature_diff` - difference in temperatures in `°C`  
+- `temperature_diff` - difference in temperatures in `°C`
 - `power` - Power usage in `kW`
 - `peak_power` - Peak power in `kWp`
 
@@ -117,3 +129,19 @@ If you're facing any issues or have feedback or a request, feel free to raise an
 [Jurgen](https://tweakers.net/gallery/92058/) on Tweakers, [pointing out the cable](https://gathering.tweakers.net/forum/list_message/62338462#62338462) needed for this to project to work.
 
 [@RuntimeError123](https://github.com/RuntimeError123) for his [integration using MQTT](https://github.com/RuntimeError123/hass-mc66c), it helped me a lot setting up this custom component. If you're looking for a solution where the cable and Home Assistant are not running on the same machine, I recommend using his implementation.
+
+
+[buymecoffee]: https://www.buymeacoffee.com/golles
+[buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg?style=for-the-badge
+[commits-shield]: https://img.shields.io/github/commit-activity/y/golles/Home-Assistant-Sensor-MC66C.svg?style=for-the-badge
+[commits]: https://github.com/golles/Home-Assistant-Sensor-MC66C/commits/main
+[hacs]: https://github.com/custom-components/hacs
+[hacs-shield]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
+[hacs-installs-shield]: https://raw.githubusercontent.com/golles/ha-active-installation-badges/main/mc66c.svg
+[license-shield]: https://img.shields.io/github/license/golles/Home-Assistant-Sensor-MC66C.svg?style=for-the-badge
+[maintainer]: https://github.com/golles
+[maintenance-shield]: https://img.shields.io/badge/maintainer-golles-blue.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/golles/Home-Assistant-Sensor-MC66C.svg?style=for-the-badge
+[releases]: https://github.com/golles/Home-Assistant-Sensor-MC66C/releases
+[stars-shield]: https://img.shields.io/github/stars/golles/Home-Assistant-Sensor-MC66C?style=for-the-badge
+[stars]: https://github.com/golles/Home-Assistant-Sensor-MC66C/stargazers
